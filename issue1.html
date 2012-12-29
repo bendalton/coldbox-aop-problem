@@ -1,0 +1,1483 @@
+
+<style type="text/css">.fw_debugPanel{font-family:Verdana,Arial,sans-serif;font-size:11px;font-weight:normal;color:#000;text-align:left;width:98%;margin:auto;clear:both;}.fw_titles{font-size:10px;font-weight:bold;color:white;border:1px solid #2694E8;background:#3BAAE3 url(/coldbox/system/includes/images/bg-glass.png) repeat-x scroll 50% 50%;padding:5px 5px 5px 5px;cursor:pointer;margin-bottom:2px;-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;}.fw_titles:hover{background:#D7EBF9 url(/coldbox/system/includes/images/bg-glass2.png) repeat-x scroll 50% 50%;border:1px solid #D3D3D3;cursor:pointer;color:black;}.fw_profilers{font-size:10px;font-weight:bold;color:black;background:#D7EBF9 url(/coldbox/system/includes/images/bg-glass2.png) repeat-x scroll 50% 50%;border:1px solid #D3D3D3;padding:5px 5px 5px 5px;cursor:pointer;margin-bottom:2px;-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;}.fw_profilers:hover{background-color:#6988c4;border:1px solid #555;cursor:pointer;}.fw_debugContentView{color:black;background-color:#f6f6f6;border:1px solid #D3D3D3;padding:5px 5px 5px 5px;display:block;margin:auto;-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;}.fw_tracerMessage{padding:5px 5px 5px 5px;border:1px solid #36C;background-color:#fff;color:black;}.fw_debugContent{display:none;}.fw_debugTitleCell{font-weight:bold;float:left;width:135px;clear:left;height:20px;}.fw_debugContentCell{clear:right;height:20px;}.fw_renderTime{margin-top:20px;margin-bottom:20px;font-weight:bold;font-style:italic;}.fw_redText{font-weight:bold;color:#C00;}.fw_orangeText{font-weight:bold;color:#ff4432;}.fw_greenText{color:#360;font-weight:bold;}.fw_blueText{font-weight:bold;color:#02A;}.fw_blackText{font-weight:bold;color:#000;}.fw_purpleText{font-weight:bold;color:#67306A;}.fw_errorText{font-size:12px;color:#666;font-weight:bold;}.fw_debugTables{font-size:11px;border:1px outset #93C2FF;background-color:#eee;width:99%;margin-left:auto;margin-right:auto;}.fw_debugTables th{font-size:11px;background-color:#CFE9FF;font-weight:bold;padding:5px 5px 5px 5px;}.fw_debugTables tr{background-color:white;}.fw_debugTables tr:hover{background-color:#FEFFAF;}.fw_debugTables tr.even{background-color:#EFF6FF;}.fw_debugTables tr.even:hover{background-color:#FEFFAF;}.fw_debugTables td{padding:5px 5px 5px 5px;font-size:11px;}.fw_debugTables textarea{border:1px solid #eee;background-color:#fffff0;font-size:11px;}.fw_debugTables tr.showRC{display:table-row;}.fw_debugTables tr.hideRC{display:none;}.fw_cacheContentReport{overflow:auto;height:375px;border:2px inset #ccc;background-color:white;text-align:center;}.fw_errorTables{font-size:12px;font-family:verdana;border:1px outset #000;background-color:#FFF;width:99%;}.fw_errorTables th{background-color:#969491;color:#000;font-weight:bold;padding:5px 5px 5px 5px;}.fw_errorTables td{font-size:10px;background-color:#fff;border:1px dotted #ccc;padding:5px 5px 5px 5px;}.fw_errorTables td.fw_errorTablesTitles{font-size:10px;font-weight:bold;background-color:#EDEDEA;padding:5px 5px 5px 5px;}.fw_errorTables tr.fw_errorTablesBreak td{border-bottom:1px solid black;}.fw_overflowScroll{width:600px;overflow:scroll;height:300px;}.fw_errorDiv{font-size:12px;font-family:verdana;margin:5px;padding:5px;}.fw_errorDiv h3{margin-top:3px;margin-bottom:3px;color:#933;}.fw_errorNotice{padding:5px;background-color:#FFF6CC;border:1px solid #999;}</style>
+<script type="text/javascript">function fw_toggle(a){var b="fw_debugContent";if(document.getElementById(a).className==b)document.getElementById(a).className="fw_debugContentView";else document.getElementById(a).className=b}function fw_poprc(a){var b=document.getElementById(a);if(b.className=="hideRC")document.getElementById(a).className="showRC";else document.getElementById(a).className="hideRC"}function fw_openwindow(h,g,e,d,f){if(screen.width)var b=(screen.width-e)/2,c=(screen.height-d)/2;else{b=0;c=0}if(b<0)b=0;if(c<0)c=0;var a="height="+d+",";a+="width="+e+",";a+="top="+c+",";a+="left="+b+",";a+=f;win=window.open(h,g,a);win.window.focus()}function fw_reinitframework(b){var a=document.getElementById("fw_reinitcoldbox");if(b){a.fwreinit.value=prompt("Reinit Password?");a.fwreinit.value.length&&a.submit()}else a.submit()}function fw_pollmonitor(c,a,b){window.location=b+"?debugpanel="+c+"&frequency="+a}function fw_cboxCommand(c,b){if(b==null)b="GET";var a=new XMLHttpRequest;a.open(b,c,false);a.send();return a.responseText}function fw_toggleDiv(c,a){if(a==null)a="block";var b=document.getElementById(c);if(b.style.display==a)b.style.display="none";else b.style.display=a};</script>
+
+<style type="text/css">.cachebox_debugPanel{
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: #000000;
+    text-align: left;
+    width:98%;
+    margin: auto;
+}
+.cachebox_titles{
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    border: 1px solid #2694E8;
+    background: #3BAAE3 url(/coldbox/system/cache/report/skins/default/images/bg-glass.png) repeat-x scroll 50% 50%;
+    padding:5px 5px 5px 5px;
+    cursor: pointer;
+    margin-bottom: 2px;
+    -moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+}
+.cachebox_titles:hover{
+   background: #D7EBF9 url(/coldbox/system/cache/report/skins/default/images/bg-glass2.png) repeat-x scroll 50% 50%;
+   border:1px solid #D3D3D3;
+   cursor: pointer;
+   color: black;
+}
+.cachebox_debugContentView{
+    color: black;
+    background-color: #f6f6f6;
+    border:1px solid #D3D3D3;
+    padding: 5px 5px 5px 5px;
+    display:block;
+    margin:auto;
+    font-size:11px;
+    -moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+}
+.cachebox_tracerMessage{
+    padding:5px 5px 5px 5px;
+    border:1px solid #3366CC;
+    background-color: #ffffff;
+    color: black;
+}
+.cachebox_debugContent{
+    display:none;
+}
+
+.cachebox_debugTitleCell{
+    font-weight:bold;
+    float:left;
+    width: 135px;
+    clear:left;
+    height:  20px;
+}
+.cachebox_debugContentCell{
+    clear:right;
+    height: 20px;
+}
+.cachebox_renderTime{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-weight: bold;
+	font-style: italic;	
+}
+.cachebox_redText{
+	font-weight:bold;
+	color:#CC0000;
+}
+.cachebox_orangeText{
+	font-weight: bold;
+	color: #ff4432;
+}
+.cachebox_greenText{
+	color: #336600;
+	font-weight:bold;
+}
+.cachebox_blueText{
+	font-weight:bold;
+	color: #0022AA;
+}
+.cachebox_blackText{
+	font-weight:bold;
+	color: #000000;
+}
+.cachebox_purpleText{
+	font-weight:bold;
+	color: #67306A;
+}
+.cachebox_errorText{
+	font-size: 11px;
+	color: #666666;
+	font-weight:bold;
+}
+.cachebox_debugTables{
+	font-size: 11px;
+	border:1px outset #93C2FF;
+	background-color: #eeeeee;
+	width: 99%;
+	margin-left:auto;
+    margin-right:auto;
+}
+.cachebox_debugTables th{
+	font-size: 11px;
+	background-color: #CFE9FF;
+	font-weight:bold;
+	padding: 5px 5px 5px 5px;
+}
+.cachebox_debugTables tr{
+	background-color: white;
+}
+.cachebox_debugTables tr:hover{
+	background-color: #FEFFAF;
+}
+.cachebox_debugTables tr.even{
+	background-color: #EFF6FF;
+}
+.cachebox_debugTables tr.even:hover{
+	background-color: #FEFFAF;
+}
+.cachebox_debugTables td{
+	padding: 5px 5px 5px 5px;
+	font-size: 11px;
+}
+.cachebox_debugTables textarea{
+	border: 1px solid #eeeeee;
+	background-color: #fffff0;
+	font-size: 11px;
+}
+.cachebox_debugTables tr.showRC{
+	display: table-row;
+}
+.cachebox_debugTables tr.hideRC{
+	display: none;
+}
+.cachebox_cacheContentReport{
+	overflow: auto;
+	height: 375px;
+	border: 2px inset #cccccc;
+	background-color: white;
+	text-align: center;
+}
+.cachebox_errorTables{
+	font-size: 11px;
+	font-family: verdana;
+	border:1px outset #000000;
+	background-color: #FFFFFF;
+	width: 99%;
+}
+.cachebox_errorTables th{
+	background-color: #969491;
+	color:#000000;
+	font-weight: bold;
+	padding:5px 5px 5px 5px;
+}
+.cachebox_errorTables td{
+	font-size: 11px;
+	background-color: #ffffff;
+	border: 1px dotted #cccccc;
+	padding: 5px 5px 5px 5px;
+}
+.cachebox_errorTables td.cachebox_errorTablesTitles{
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #EDEDEA;
+	padding: 5px 5px 5px 5px;
+}
+.cachebox_overflowScroll{
+	width: 600px;
+	overflow:scroll;
+	height: 300px;
+}
+.cachebox_errorDiv{
+	font-size:11px;
+	font-family: verdana;
+	margin: 5px;
+	padding: 5px;
+}
+.cachebox_errorDiv h3{
+	margin-top: 3px;
+	margin-bottom: 3px;
+	color: #993333;
+}
+.cachebox_errorNotice{
+	padding: 5px;
+	background-color: #FFF6CC;
+	border: 1px solid #999999;
+}</style>
+<script type="text/javascript">function cachebox_toggle(divid){
+	if ( document.getElementById(divid).className == "cachebox_debugContent"){
+		document.getElementById(divid).className = "cachebox_debugContentView";
+	}
+	else{
+		document.getElementById(divid).className = "cachebox_debugContent";
+	}
+}
+function cachebox_openwindow(mypage,myname,w,h,features) {
+	if(screen.width){
+		var winl = (screen.width-w)/2;
+		var wint = (screen.height-h)/2;
+	}
+	else{
+		winl = 0;wint =0;
+	}
+	if (winl < 0) winl = 0;
+	if (wint < 0) wint = 0;
+	
+	var settings = 'height=' + h + ',';
+	settings += 'width=' + w + ',';
+	settings += 'top=' + wint + ',';
+	settings += 'left=' + winl + ',';
+	settings += features;
+	win = window.open(mypage,myname,settings);
+	win.window.focus();
+}
+function cachebox_getBase(baseURL){
+	var idx = baseURL.search(/\?/);
+	if( idx > 0 )
+		return baseURL + "&";
+	return baseURL + "?";
+}
+function cachebox_pollmonitor(panel, frequency, urlBase,newWindow){
+	var newLocation = cachebox_getBase(urlBase) + 'debugpanel=' + panel + '&frequency=' + frequency + '&cbox_cacheMonitor=true';
+	if (newWindow == 'undefined') {
+		window.location = newLocation;
+	}
+	else{
+		cachebox_openwindow(newLocation,'cachemonitor',850,750,'status=1,toolbar=0,location=0,resizable=1,scrollbars=1');
+	}
+}
+function cachebox_cboxCommand( commandURL, verb ){
+	if( verb == null ){
+		verb = "GET";
+	}
+	var request = new XMLHttpRequest();
+	request.open( verb, commandURL, false);
+	request.send();
+	return request.responseText;
+}
+function cachebox_cacheExpireItem(URLBase, cacheKey, cacheName){
+	// Button
+	var btn = document.getElementById('cboxbutton_expireentry_'+cacheKey);
+	btn.disabled = true;
+	btn.value = "Wait";
+	// Execute Command
+	cachebox_cboxCommand( cachebox_getBase(URLBase) + "cbox_command=expirecacheentry&cbox_cacheentry=" + cacheKey + "&cbox_cacheName="+cacheName);
+	// ReFill the content report
+	cachebox_cacheContentReport(URLBase,cacheName);
+}
+function cachebox_cacheClearItem(URLBase, cacheKey, cacheName){
+	// Button
+	var btn = document.getElementById('cboxbutton_removeentry_'+cacheKey);
+	btn.disabled = true;
+	btn.value = "Wait";
+	// Execute Command
+	cachebox_cboxCommand( cachebox_getBase(URLBase) + "cbox_command=delcacheentry&cbox_cacheentry=" + cacheKey + "&cbox_cacheName="+cacheName);
+	// Remove Entry
+	var element = document.getElementById('cbox_cache_tr_'+cacheKey);
+	element.parentNode.removeChild(element);
+}
+//Execute a command from the cacheBox Toolbar
+function cachebox_cacheBoxCommand(URLBase, command, btnID, showAlert){
+	if( showAlert == null){ showAlert = true; }
+	var btn = document.getElementById(btnID)
+	btn.disabled = true
+	cachebox_cboxCommand( cachebox_getBase(URLBase) + "cbox_command=" + command)
+	btn.disabled = false
+	if( showAlert ){ alert("CacheBox Command Completed!"); }
+}
+// Execute a garbage collection
+function cachebox_cacheGC(URLBase,cacheName,btnID){
+	// Run GC
+	cachebox_cacheBoxCommand(URLBase,"gc",btnID,false)
+	// Re-Render Cache Report
+	cachebox_cacheReport(URLBase,cacheName)
+}
+// Render a cache report dynamically based on a cache name
+function cachebox_cacheReport(URLBase,cacheName){
+	// loader change
+	var loader = document.getElementById('cachebox_cachebox_selector_loading');
+	loader.style.display='inline';
+	var reportDiv = document.getElementById('cachebox_cacheReport');
+	reportDiv.innerHTML = "";
+	// get report
+	var reportHTML = cachebox_cboxCommand(cachebox_getBase(URLBase)+"debugPanel=cacheReport&cbox_cacheName="+cacheName);
+	reportDiv.innerHTML = reportHTML;
+	// turn off loader
+	loader.style.display='none';
+}
+// Re-Fill Content Report
+function cachebox_cacheContentReport(URLBase,cacheName){
+	var reportDiv = document.getElementById('cachebox_cacheContentReport')
+	reportDiv.innerHTML = ""
+	var reportHTML = cachebox_cboxCommand(cachebox_getBase(URLBase)+"debugPanel=cacheContentReport&cbox_cacheName="+cacheName);
+	reportDiv.innerHTML = reportHTML;
+}
+//Execute a CacheContent Command
+function cachebox_cacheContentCommand(URLBase, command, cacheName, loaderDiv){
+	var loader = document.getElementById('cachebox_cacheContentReport_loader');
+	loader.style.display='inline';
+	// Execute Command
+	cachebox_cboxCommand( cachebox_getBase(URLBase) + "cbox_command=" + command + "&cbox_cacheName="+cacheName);
+	// ReFill the content report
+	cachebox_cacheContentReport(URLBase,cacheName);
+	// turn off loader
+	loader.style.display='none';
+}
+function cachebox_toggleDiv(targetDiv, displayStyle){
+	// toggle a div with styles, man I miss jquery
+	if( displayStyle == null){ displayStyle = "block"; }
+	var target = document.getElementById(targetDiv);
+	if( target.style.display == displayStyle ){
+		target.style.display = "none";
+	}
+	else{
+		target.style.display = displayStyle;
+	}	
+}
+// Timed Refresh
+function cachebox_timedRefresh(timeoutPeriod) {
+	setTimeout("location.reload(true);",timeoutPeriod);
+}</script>
+
+
+
+<style type="text/css">.fw_debugPanel{font-family:Verdana,Arial,sans-serif;font-size:11px;font-weight:normal;color:#000;text-align:left;width:98%;margin:auto;clear:both;}.fw_titles{font-size:10px;font-weight:bold;color:white;border:1px solid #2694E8;background:#3BAAE3 url(/coldbox/system/includes/images/bg-glass.png) repeat-x scroll 50% 50%;padding:5px 5px 5px 5px;cursor:pointer;margin-bottom:2px;-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;}.fw_titles:hover{background:#D7EBF9 url(/coldbox/system/includes/images/bg-glass2.png) repeat-x scroll 50% 50%;border:1px solid #D3D3D3;cursor:pointer;color:black;}.fw_profilers{font-size:10px;font-weight:bold;color:black;background:#D7EBF9 url(/coldbox/system/includes/images/bg-glass2.png) repeat-x scroll 50% 50%;border:1px solid #D3D3D3;padding:5px 5px 5px 5px;cursor:pointer;margin-bottom:2px;-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;}.fw_profilers:hover{background-color:#6988c4;border:1px solid #555;cursor:pointer;}.fw_debugContentView{color:black;background-color:#f6f6f6;border:1px solid #D3D3D3;padding:5px 5px 5px 5px;display:block;margin:auto;-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;}.fw_tracerMessage{padding:5px 5px 5px 5px;border:1px solid #36C;background-color:#fff;color:black;}.fw_debugContent{display:none;}.fw_debugTitleCell{font-weight:bold;float:left;width:135px;clear:left;height:20px;}.fw_debugContentCell{clear:right;height:20px;}.fw_renderTime{margin-top:20px;margin-bottom:20px;font-weight:bold;font-style:italic;}.fw_redText{font-weight:bold;color:#C00;}.fw_orangeText{font-weight:bold;color:#ff4432;}.fw_greenText{color:#360;font-weight:bold;}.fw_blueText{font-weight:bold;color:#02A;}.fw_blackText{font-weight:bold;color:#000;}.fw_purpleText{font-weight:bold;color:#67306A;}.fw_errorText{font-size:12px;color:#666;font-weight:bold;}.fw_debugTables{font-size:11px;border:1px outset #93C2FF;background-color:#eee;width:99%;margin-left:auto;margin-right:auto;}.fw_debugTables th{font-size:11px;background-color:#CFE9FF;font-weight:bold;padding:5px 5px 5px 5px;}.fw_debugTables tr{background-color:white;}.fw_debugTables tr:hover{background-color:#FEFFAF;}.fw_debugTables tr.even{background-color:#EFF6FF;}.fw_debugTables tr.even:hover{background-color:#FEFFAF;}.fw_debugTables td{padding:5px 5px 5px 5px;font-size:11px;}.fw_debugTables textarea{border:1px solid #eee;background-color:#fffff0;font-size:11px;}.fw_debugTables tr.showRC{display:table-row;}.fw_debugTables tr.hideRC{display:none;}.fw_cacheContentReport{overflow:auto;height:375px;border:2px inset #ccc;background-color:white;text-align:center;}.fw_errorTables{font-size:12px;font-family:verdana;border:1px outset #000;background-color:#FFF;width:99%;}.fw_errorTables th{background-color:#969491;color:#000;font-weight:bold;padding:5px 5px 5px 5px;}.fw_errorTables td{font-size:10px;background-color:#fff;border:1px dotted #ccc;padding:5px 5px 5px 5px;}.fw_errorTables td.fw_errorTablesTitles{font-size:10px;font-weight:bold;background-color:#EDEDEA;padding:5px 5px 5px 5px;}.fw_errorTables tr.fw_errorTablesBreak td{border-bottom:1px solid black;}.fw_overflowScroll{width:600px;overflow:scroll;height:300px;}.fw_errorDiv{font-size:12px;font-family:verdana;margin:5px;padding:5px;}.fw_errorDiv h3{margin-top:3px;margin-bottom:3px;color:#933;}.fw_errorNotice{padding:5px;background-color:#FFF6CC;border:1px solid #999;}</style>
+
+<div class="fw_errorDiv">
+	<h1>Oops! Exception Encountered</h1>
+	
+	<div class="fw_errorNotice">
+	
+	<h3>Application Execution Exception</h3>
+	
+	
+	
+	<strong>Error Type: </strong> Expression : [N/A]<br />
+	
+		<strong>Error Messages:</strong>
+		Cannot invoke method put on an object of type java.lang.String with named arguments.<br />
+		Use ordered arguments instead. 
+
+	</div>
+</div>
+
+<table border="0" cellpadding="0" cellspacing="3" class="fw_errorTables" align="center">
+
+	
+	
+		  <tr >
+			<th colspan="2" >Tag Context:</th>
+		  </tr>
+		  
+		  <tr >
+			<td align="right" class="fw_errorTablesTitles">ID:</td>
+		    <td >??</td>
+		  </tr>		
+		   <tr >
+			<td align="right" class="fw_errorTablesTitles">LINE:</td>
+		    <td >103</td>
+		   </tr>		
+		   <tr class="fw_errorTablesBreak">
+			<td align="right" class="fw_errorTablesTitles">Template:</td>
+		    <td >/Users/ben/Desktop/Sites/coldbox/system/plugins/MessageBox.cfc</td>
+		   </tr>
+		  
+		  <tr >
+			<td align="right" class="fw_errorTablesTitles">ID:</td>
+		    <td >CF_TEMPLATEPROXY</td>
+		  </tr>		
+		   <tr >
+			<td align="right" class="fw_errorTablesTitles">LINE:</td>
+		    <td >32</td>
+		   </tr>		
+		   <tr class="fw_errorTablesBreak">
+			<td align="right" class="fw_errorTablesTitles">Template:</td>
+		    <td >/Users/ben/Desktop/Sites/aop-problem/aspects/VTMOSecurity.cfc</td>
+		   </tr>
+		  
+		  <tr >
+			<td align="right" class="fw_errorTablesTitles">ID:</td>
+		    <td >CF_TEMPLATEPROXY</td>
+		  </tr>		
+		   <tr >
+			<td align="right" class="fw_errorTablesTitles">LINE:</td>
+		    <td >135</td>
+		   </tr>		
+		   <tr class="fw_errorTablesBreak">
+			<td align="right" class="fw_errorTablesTitles">Template:</td>
+		    <td >/Users/ben/Desktop/Sites/coldbox/system/aop/MethodInvocation.cfc</td>
+		   </tr>
+		  
+		  <tr >
+			<td align="right" class="fw_errorTablesTitles">ID:</td>
+		    <td >CF_TEMPLATEPROXY</td>
+		  </tr>		
+		   <tr >
+			<td align="right" class="fw_errorTablesTitles">LINE:</td>
+		    <td >14</td>
+		   </tr>		
+		   <tr class="fw_errorTablesBreak">
+			<td align="right" class="fw_errorTablesTitles">Template:</td>
+		    <td >/Users/ben/Desktop/Sites/aop-problem/tmp/0ac43b7b-ec55-4b1d-9024-11cfca2b8fb8.cfm</td>
+		   </tr>
+		  
+		  <tr >
+			<td align="right" class="fw_errorTablesTitles">ID:</td>
+		    <td >CFINVOKE</td>
+		  </tr>		
+		   <tr >
+			<td align="right" class="fw_errorTablesTitles">LINE:</td>
+		    <td >739</td>
+		   </tr>		
+		   <tr class="fw_errorTablesBreak">
+			<td align="right" class="fw_errorTablesTitles">Template:</td>
+		    <td >/Users/ben/Desktop/Sites/coldbox/system/web/Controller.cfc</td>
+		   </tr>
+		  
+		  <tr >
+			<td align="right" class="fw_errorTablesTitles">ID:</td>
+		    <td >CF_UDFMETHOD</td>
+		  </tr>		
+		   <tr >
+			<td align="right" class="fw_errorTablesTitles">LINE:</td>
+		    <td >623</td>
+		   </tr>		
+		   <tr class="fw_errorTablesBreak">
+			<td align="right" class="fw_errorTablesTitles">Template:</td>
+		    <td >/Users/ben/Desktop/Sites/coldbox/system/web/Controller.cfc</td>
+		   </tr>
+		  
+		  <tr >
+			<td align="right" class="fw_errorTablesTitles">ID:</td>
+		    <td >CF_TEMPLATEPROXY</td>
+		  </tr>		
+		   <tr >
+			<td align="right" class="fw_errorTablesTitles">LINE:</td>
+		    <td >236</td>
+		   </tr>		
+		   <tr class="fw_errorTablesBreak">
+			<td align="right" class="fw_errorTablesTitles">Template:</td>
+		    <td >/Users/ben/Desktop/Sites/coldbox/system/Coldbox.cfc</td>
+		   </tr>
+		  
+		  <tr >
+			<td align="right" class="fw_errorTablesTitles">ID:</td>
+		    <td >CF_UDFMETHOD</td>
+		  </tr>		
+		   <tr >
+			<td align="right" class="fw_errorTablesTitles">LINE:</td>
+		    <td >45</td>
+		   </tr>		
+		   <tr class="fw_errorTablesBreak">
+			<td align="right" class="fw_errorTablesTitles">Template:</td>
+		    <td >/Users/ben/Desktop/Sites/aop-problem/Application.cfc</td>
+		   </tr>
+		  
+	 
+	<tr>
+	   <th colspan="2" >Framework Snapshot</th>
+	</tr>
+	 
+	
+		<tr>
+		  <td width="75" align="right" class="fw_errorTablesTitles">Current Event: </td>
+		  <td width="463" >main.secured</td>
+		</tr>
+		<tr>
+		  <td align="right" class="fw_errorTablesTitles">Current Layout: </td>
+		  <td >
+		  	N/A
+		  	(Module: )
+		  </td>
+		</tr>
+		<tr>
+		  <td align="right" class="fw_errorTablesTitles">Current View: </td>
+		  <td >N/A</td>
+		</tr>
+	
+
+	 <tr>
+	   <td align="right" class="fw_errorTablesTitles">Bug Date:</td>
+	   <td >12/29/2012 03:22:00 PM</td>
+	 </tr>
+	 
+	 <tr>
+	   <td align="right" class="fw_errorTablesTitles">Coldfusion ID: </td>
+	   <td >
+	   	
+			CFID=8101 ;
+			
+			CFToken=927f96ec6c68a97a-10DEDF3C-0E33-CC74-DDE9C75FA025E995 ;
+			
+			JSessionID=2606BCA1CC9D3EE94EB6A76C133557C0_8101_927f96ec6c68a97a-10DEDF3C-0E33-CC74-DDE9C75FA025E995 
+		</td>
+	 </tr>
+	 <tr>
+	   <td align="right" class="fw_errorTablesTitles">Template Path : </td>
+	   <td >/Users/ben/Desktop/Sites/aop-problem/index.cfm</td>
+	 </tr>
+	  <tr>
+	   <td align="right" class="fw_errorTablesTitles">Path Info : </td>
+	   <td >/main/secured</td>
+	 </tr>
+	 <tr>
+	   <td align="right" class="fw_errorTablesTitles"> Host &amp; Server: </td>
+	   <td >desktop i7-MBP.local</td>
+	 </tr>
+	 <tr>
+	   <td align="right" class="fw_errorTablesTitles">Query String: </td>
+	   <td >fwreinit</td>
+	 </tr>
+	
+	
+	<tr>
+	   <td align="right" class="fw_errorTablesTitles">Browser:</td>
+	   <td >Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.45 Safari/537.17</td>
+	</tr>
+	<tr>
+	   <td align="right" class="fw_errorTablesTitles"> Remote Address: </td>
+	   <td >127.0.0.1</td>
+	 </tr>
+	 
+	 <tr >
+		<th colspan="2" >Form variables:</th>
+	 </tr>
+	 
+	 <tr >
+		<th colspan="2" >Session Storage:</th>
+	 </tr>
+	 
+	 <tr >
+		<th colspan="2" >Cookies:</th>
+	 </tr>
+	 
+	 <tr>
+	   <td align="right" class="fw_errorTablesTitles"> CFID: </td>
+	   <td >8101</td>
+	 </tr>
+	 
+	 <tr>
+	   <td align="right" class="fw_errorTablesTitles"> CFTOKEN: </td>
+	   <td >927f96ec6c68a97a-10DEDF3C-0E33-CC74-DDE9C75FA025E995</td>
+	 </tr>
+	 
+	 <tr>
+	   <td align="right" class="fw_errorTablesTitles"> COLDBOX_DEBUGMODE_F530F3679B8B1CE225902C774AC0C82A: </td>
+	   <td >true</td>
+	 </tr>
+	 
+	 
+	 <tr >
+		<th colspan="2" >Stack Trace:</th>
+	 </tr>
+	 <tr>
+		<td colspan="2" >
+			<div class="fw_stacktrace"><pre>coldfusion.runtime.CfJspPage$CannotUseNamedArgsException: Cannot invoke method put on an object of type java.lang.String with named arguments.
+	at coldfusion.runtime.CfJspPage._invoke(CfJspPage.java:2386)
+	at cfMessageBox2ecfc976750595$funcSETMESSAGE.runFunction(/Users/ben/Desktop/Sites/coldbox/system/plugins/MessageBox.cfc:103)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:472)
+	at coldfusion.filter.SilentFilter.invoke(SilentFilter.java:47)
+	at coldfusion.runtime.UDFMethod$ReturnTypeFilter.invoke(UDFMethod.java:405)
+	at coldfusion.runtime.UDFMethod$ArgumentCollectionFilter.invoke(UDFMethod.java:368)
+	at coldfusion.filter.FunctionAccessFilter.invoke(FunctionAccessFilter.java:55)
+	at coldfusion.runtime.UDFMethod.runFilterChain(UDFMethod.java:321)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:220)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:655)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:444)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:414)
+	at coldfusion.runtime.CfJspPage._invoke(CfJspPage.java:2432)
+	at cfVTMOSecurity2ecfc168761952$funcINVOKEMETHOD.runFunction(/Users/ben/Desktop/Sites/aop-problem/aspects/VTMOSecurity.cfc:32)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:472)
+	at coldfusion.filter.SilentFilter.invoke(SilentFilter.java:47)
+	at coldfusion.runtime.UDFMethod$ReturnTypeFilter.invoke(UDFMethod.java:405)
+	at coldfusion.runtime.UDFMethod$ArgumentCollectionFilter.invoke(UDFMethod.java:368)
+	at coldfusion.filter.FunctionAccessFilter.invoke(FunctionAccessFilter.java:55)
+	at coldfusion.runtime.UDFMethod.runFilterChain(UDFMethod.java:321)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:220)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:655)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:444)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:414)
+	at coldfusion.runtime.CfJspPage._invoke(CfJspPage.java:2432)
+	at cfMethodInvocation2ecfc496539657$funcPROCEED.runFunction(/Users/ben/Desktop/Sites/coldbox/system/aop/MethodInvocation.cfc:135)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:472)
+	at coldfusion.filter.SilentFilter.invoke(SilentFilter.java:47)
+	at coldfusion.runtime.UDFMethod$ReturnTypeFilter.invoke(UDFMethod.java:405)
+	at coldfusion.runtime.UDFMethod$ArgumentCollectionFilter.invoke(UDFMethod.java:368)
+	at coldfusion.filter.FunctionAccessFilter.invoke(FunctionAccessFilter.java:55)
+	at coldfusion.runtime.UDFMethod.runFilterChain(UDFMethod.java:321)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:220)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:655)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:444)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:414)
+	at coldfusion.runtime.CfJspPage._invoke(CfJspPage.java:2432)
+	at cf0ac43b7b2dec552d4b1d2d90242d11cfca2b8fb82ecfm69048756$funcSECURED.runFunction(/Users/ben/Desktop/Sites/aop-problem/tmp/0ac43b7b-ec55-4b1d-9024-11cfca2b8fb8.cfm:14)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:472)
+	at coldfusion.filter.SilentFilter.invoke(SilentFilter.java:47)
+	at coldfusion.runtime.UDFMethod$ReturnTypeFilter.invoke(UDFMethod.java:405)
+	at coldfusion.runtime.UDFMethod$ArgumentCollectionFilter.invoke(UDFMethod.java:368)
+	at coldfusion.filter.FunctionAccessFilter.invoke(FunctionAccessFilter.java:55)
+	at coldfusion.runtime.UDFMethod.runFilterChain(UDFMethod.java:321)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:518)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:660)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:469)
+	at coldfusion.runtime.CfJspPage._invoke(CfJspPage.java:2373)
+	at coldfusion.tagext.lang.InvokeTag.doEndTag(InvokeTag.java:402)
+	at coldfusion.runtime.CfJspPage._emptyTcfTag(CfJspPage.java:2800)
+	at cfController2ecfc541475328$funcINVOKER.runFunction(/Users/ben/Desktop/Sites/coldbox/system/web/Controller.cfc:739)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:472)
+	at coldfusion.filter.SilentFilter.invoke(SilentFilter.java:47)
+	at coldfusion.runtime.UDFMethod$ReturnTypeFilter.invoke(UDFMethod.java:405)
+	at coldfusion.runtime.UDFMethod$ArgumentCollectionFilter.invoke(UDFMethod.java:368)
+	at coldfusion.filter.FunctionAccessFilter.invoke(FunctionAccessFilter.java:55)
+	at coldfusion.runtime.UDFMethod.runFilterChain(UDFMethod.java:321)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:220)
+	at coldfusion.runtime.CfJspPage._invokeUDF(CfJspPage.java:2659)
+	at cfController2ecfc541475328$funcRUNEVENT.runFunction(/Users/ben/Desktop/Sites/coldbox/system/web/Controller.cfc:623)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:472)
+	at coldfusion.filter.SilentFilter.invoke(SilentFilter.java:47)
+	at coldfusion.runtime.UDFMethod$ReturnTypeFilter.invoke(UDFMethod.java:405)
+	at coldfusion.runtime.UDFMethod$ArgumentCollectionFilter.invoke(UDFMethod.java:368)
+	at coldfusion.filter.FunctionAccessFilter.invoke(FunctionAccessFilter.java:55)
+	at coldfusion.runtime.UDFMethod.runFilterChain(UDFMethod.java:321)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:518)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:660)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:469)
+	at coldfusion.runtime.CfJspPage._invoke(CfJspPage.java:2373)
+	at cfColdbox2ecfc233088864$funcPROCESSCOLDBOXREQUEST.runFunction(/Users/ben/Desktop/Sites/coldbox/system/Coldbox.cfc:236)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:472)
+	at coldfusion.runtime.UDFMethod$ReturnTypeFilter.invoke(UDFMethod.java:405)
+	at coldfusion.runtime.UDFMethod$ArgumentCollectionFilter.invoke(UDFMethod.java:368)
+	at coldfusion.filter.FunctionAccessFilter.invoke(FunctionAccessFilter.java:55)
+	at coldfusion.runtime.UDFMethod.runFilterChain(UDFMethod.java:321)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:220)
+	at coldfusion.runtime.CfJspPage._invokeUDF(CfJspPage.java:2659)
+	at cfApplication2ecfc692633113$funcONREQUESTSTART.runFunction(/Users/ben/Desktop/Sites/aop-problem/Application.cfc:45)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:472)
+	at coldfusion.runtime.UDFMethod$ReturnTypeFilter.invoke(UDFMethod.java:405)
+	at coldfusion.runtime.UDFMethod$ArgumentCollectionFilter.invoke(UDFMethod.java:368)
+	at coldfusion.filter.FunctionAccessFilter.invoke(FunctionAccessFilter.java:55)
+	at coldfusion.runtime.UDFMethod.runFilterChain(UDFMethod.java:321)
+	at coldfusion.runtime.UDFMethod.invoke(UDFMethod.java:220)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:655)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:444)
+	at coldfusion.runtime.TemplateProxy.invoke(TemplateProxy.java:414)
+	at coldfusion.runtime.AppEventInvoker.invoke(AppEventInvoker.java:108)
+	at coldfusion.runtime.AppEventInvoker.onRequestStart(AppEventInvoker.java:278)
+	at coldfusion.filter.ApplicationFilter.invoke(ApplicationFilter.java:411)
+	at coldfusion.filter.MonitoringFilter.invoke(MonitoringFilter.java:40)
+	at coldfusion.filter.PathFilter.invoke(PathFilter.java:112)
+	at coldfusion.filter.LicenseFilter.invoke(LicenseFilter.java:30)
+	at coldfusion.filter.ExceptionFilter.invoke(ExceptionFilter.java:94)
+	at coldfusion.filter.BrowserDebugFilter.invoke(BrowserDebugFilter.java:79)
+	at coldfusion.filter.ClientScopePersistenceFilter.invoke(ClientScopePersistenceFilter.java:28)
+	at coldfusion.filter.BrowserFilter.invoke(BrowserFilter.java:38)
+	at coldfusion.filter.NoCacheFilter.invoke(NoCacheFilter.java:46)
+	at coldfusion.filter.GlobalsFilter.invoke(GlobalsFilter.java:38)
+	at coldfusion.filter.DatasourceFilter.invoke(DatasourceFilter.java:22)
+	at coldfusion.filter.CachingFilter.invoke(CachingFilter.java:62)
+	at coldfusion.CfmServlet.service(CfmServlet.java:219)
+	at coldfusion.bootstrap.BootstrapServlet.service(BootstrapServlet.java:89)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at coldfusion.monitor.event.MonitoringServletFilter.doFilter(MonitoringServletFilter.java:42)
+	at coldfusion.bootstrap.BootstrapFilter.doFilter(BootstrapFilter.java:46)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:224)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:169)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:168)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:928)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:414)
+	at org.apache.coyote.ajp.AjpProcessor.process(AjpProcessor.java:210)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:539)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:298)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:680)
+</pre></div>
+		</td>
+	 </tr>
+	 	
+	 <tr>
+	   <th colspan="2" >Extra Information Dump </th>
+	 </tr>
+	
+	 <tr>
+	    <td colspan="2" >
+	    [N/A] 
+	    </td>
+	 </tr>
+
+</table>
+
+<div style="margin-top:40px"></div>
+<div class="fw_debugPanel">
+
+	
+	
+	
+	
+	<div class="fw_titles" onClick="fw_toggle('fw_info')" >
+		&nbsp;ColdBox Debugging Information
+	</div>
+
+	<div class="fw_debugContentView" id="fw_info">
+		
+		<div>
+			<form name="fw_reinitcoldbox" id="fw_reinitcoldbox" action="http://desktop/index.cfm" method="POST">
+				<input type="hidden" name="fwreinit" id="fwreinit" value="">
+				<input type="button" value="Reinitialize Framework" name="reinitframework" style="font-size:10px" 
+					   title="Reinitialize the framework." 
+					   onClick="fw_reinitframework(false)">
+				
+				&nbsp;
+				<input type="button" value="Open Profiler Monitor" name="profilermonitor" style="font-size:10px" 
+					   title="Open the profiler monitor in a new window." 
+					   onClick="window.open('http://desktop/index.cfm?debugpanel=profiler','profilermonitor','status=1,toolbar=0,location=0,resizable=1,scrollbars=1,height=750,width=850')">
+				
+				&nbsp;
+				<input type="button" value="Turn Debugger Off" name="debuggerButton" style="font-size:10px" 
+					   title="Turn the ColdBox Debugger Off" 
+					   onClick="window.location='http://desktop/index.cfm?debugmode=false'">
+				
+			</form>
+		  <br>
+		</div>
+		
+		<div class="fw_debugTitleCell">
+		  Framework Info:
+		</div>
+		<div class="fw_debugContentCell">
+		ColdBox SEEK 3.5.2 Jeremiah 29:13
+		</div>
+		<div class="fw_debugTitleCell">
+		  Application Name:
+		</div>
+		<div class="fw_debugContentCell">
+		SuperSimpleApp 
+		<span class="fw_purpleText">(environment=production)</span>
+		</div>
+		
+		<div class="fw_debugTitleCell">
+		  TimeStamp:
+		</div>
+		<div class="fw_debugContentCell">
+		Dec-29-2012 03:22:00 PM
+		</div>
+
+		<div class="fw_debugTitleCell">
+		  Server Instance:
+		</div>
+		<div class="fw_debugContentCell">
+	    i7-MBP.local
+		</div>
+
+		<div class="fw_debugTitleCell">
+		  Current Event:
+		</div>
+		<div class="fw_debugContentCell">
+		main.secured 
+		</div>
+
+		<div class="fw_debugTitleCell">
+		  Current Layout:
+		</div>
+		<div class="fw_debugContentCell">
+		<span class="fw_redText">N/A</span>
+		(Module: )
+		</div>
+
+		<div class="fw_debugTitleCell">
+		  Current View:
+		</div>
+		<div class="fw_debugContentCell">
+		<span class="fw_redText">N/A</span>
+		</div>
+		
+		<div class="fw_debugTitleCell">
+		  Current Route:
+		</div>
+		<div class="fw_debugContentCell">
+		:handler/:action/
+		</div>
+		
+		<div class="fw_debugTitleCell">
+		  Routed URL:
+		</div>
+		<div class="fw_debugContentCell">
+		main/secured/
+		</div>
+		
+		<div class="fw_debugTitleCell">
+		  LogBox Appenders:
+		</div>
+		<div class="fw_debugContentCell">CONSOLE</div>
+		<div class="fw_debugTitleCell">
+		  RootLogger Levels:
+		</div>
+		<div class="fw_debugContentCell">
+			OFF - 
+			OFF	
+		</div>
+		<div class="fw_debugTitleCell">
+		  Loaded Modules:
+		</div>
+		<div class="fw_debugContentCell">
+						
+		</div>
+		
+		
+		
+		
+		<table border="0" align="center" cellpadding="0" cellspacing="1" class="fw_debugTables">
+		  <tr>
+		  	<th width="13%" align="center" >Timestamp</th>
+			<th width="10%" align="center" >Execution Time</th>
+			<th >Framework Method</th>
+			
+			
+		  </tr>
+		 
+		  
+		  	<tr>
+			  	<td colspan="5">No Timers Found...</td>			
+			</tr>
+		  
+		  <tr>
+			<th colspan="5">Total Framework Request Execution Time: 89 ms</th>
+		  </tr>
+		  
+		</table>		
+		
+	</div>
+	
+
+<div class="cachebox_titles" onClick="cachebox_toggle('cachebox_cache')">&nbsp;CacheBox Monitor</div>
+
+<div class="cachebox_debugContent" id="cachebox_cache">
+
+	
+	<div style="margin-bottom:5px;">
+		
+		
+		
+		
+			
+			<strong>Refresh Monitor: </strong>
+			<select id="frequency" style="font-size:10px" onChange="cachebox_pollmonitor('cache',this.value,'/index.cfm')" title="Refresh Frequency">
+				<option value="0">No Polling</option>
+				
+				<option value="5" >5 sec</option>
+				
+				<option value="10" >10 sec</option>
+				
+				<option value="15" >15 sec</option>
+				
+				<option value="20" >20 sec</option>
+				
+				<option value="25" >25 sec</option>
+				
+				<option value="30" >30 sec</option>
+				
+			</select>
+			
+			
+				
+				<input type="button" value="Open Cache Monitor" name="cachemonitor" style="font-size:10px" 
+					   title="Open the cache monitor in a new window." 
+					   onClick="cachebox_pollmonitor('cache',0,'/index.cfm',true)">
+			
+				
+		
+		<input type="button" value="CacheBox ExpireAll()" 
+		   name="cboxbutton_cacheBoxExpireAll" id="cboxbutton_cacheBoxExpireAll"
+		   style="font-size:10px" 
+		   title="Tell CacheBox to run an expireAll() on all caches" 
+		   onclick="cachebox_cacheBoxCommand('/index.cfm','cacheBoxExpireAll', this.id)" />
+		
+		<input type="button" value="CacheBox ReapAll()" 
+		   name="cboxbutton_cacheBoxReapAll" id="cboxbutton_cacheBoxReapAll"
+		   style="font-size:10px" 
+		   title="Tell CacheBox to run an reapAll() on all caches" 
+		   onclick="cachebox_cacheBoxCommand('/index.cfm','cacheBoxReapAll', this.id)" />
+		   			  
+		
+		<span class="cachebox_redText cachebox_debugContent" id="cachebox_cachebox_toolbar_loader">Loading...</span>	
+	</div>
+		
+	
+	<div class="cachebox_debugTitleCell">
+	  CacheBox ID
+	</div>
+	<div class="cachebox_debugContentCell">
+		214481062
+	</div>
+	<div class="cachebox_debugTitleCell">
+	  Configured Caches
+	</div>
+	<div class="cachebox_debugContentCell">
+		TEMPLATE,default
+	</div>
+	<div class="cachebox_debugTitleCell">
+	  Scope Registration
+	</div>
+	<div class="cachebox_debugContentCell">
+		{ENABLED={false},SCOPE={server},KEY={cachebox}}
+	</div>		
+	<hr />
+	
+	
+	<h3>Performance Report For 
+		<select name="cachebox_cachebox_selector" id="cachebox_cachebox_selector" 
+				style="font-size:9px;"
+				title="Choose a cache from the list to generate the report"
+				onChange="cachebox_cacheReport('/index.cfm',this.value)">
+			
+				<option value="TEMPLATE" >TEMPLATE</option>
+			
+				<option value="default" selected="selected">default</option>
+			
+		</select>
+		Cache
+		
+		<input type="button" value="Regenerate Report" 
+			   name="cboxbutton_cachebox_regenerateReport"
+			   style="font-size:10px" 
+			   title="Regenerate Report" 
+			   onClick="cachebox_cacheReport('/index.cfm',document.getElementById('cachebox_cachebox_selector').value)" />  
+	
+		<span class="cachebox_redText cachebox_debugContent" id="cachebox_cachebox_selector_loading">Loading...</span>	   
+	</h3>
+		
+	
+	<div id="cachebox_cacheReport"> 
+   
+
+<div class="cachebox_debugTitleCell">
+  Cache Name
+</div>
+<div class="cachebox_debugContentCell">
+ default [class=coldbox.system.cache.providers.CacheBoxColdBoxProvider]
+</div>
+
+
+<div class="cachebox_debugTitleCell">
+  Performance
+</div>
+<div class="cachebox_debugContentCell">
+ <em>Hit Ratio:</em>  11.11%  ==>
+ <em>Hits:</em> 1 |
+ <em>Misses:</em> 8 |
+ <em>Evictions:</em> 0 |
+ <em>Garbage Collections:</em> 0 |
+ <em>Object Count: </em> 4
+</div>
+
+
+<div class="cachebox_debugTitleCell">
+  JVM Memory Stats
+</div>
+<div class="cachebox_debugContentCell">
+ <em> 5.97 % Free </em> |
+ <em>Max: </em> 1,864,192 KB
+ <em>Total: </em> 284,800 KB |
+ <em>Free: </em> 111,273 KB		 
+</div>
+
+
+
+	<div class="cachebox_debugTitleCell">
+	  Last Reap
+	</div>
+	<div class="cachebox_debugContentCell">
+	 Dec-29-2012 03:22:00 PM
+	</div>
+
+<div>
+<table align="center" width="100%" border="1" cellpadding="0" cellspacing="0" style="background:white">
+	<tr>
+		<td align="center">
+			<!-- WebCharts3D v5.1(2077b) -->
+<IMG SRC="/CFIDE/GraphData.cfm?graphCache=wc50&graphID=Images/123877920100095.PNG" id="Images_123877920100095_PNG" name="Images_123877920100095_PNG" usemap="#Images_123877920100095_PNG_map" border="0"/>
+<table cellpadding='0' cellspacing='1' style='visibility: hidden;display: none; position:absolute;font-family: Osaka;font-size: 11px;background:#FFFFFF;foreground:#333333;color:#333333;-moz-opacity:.78;-opacity:.78;filter:alpha(opacity=78);border:1px solid #333333;' name='GP1356812520393AAAB' id='GP1356812520393AAAB'><tr><td width='8'>&nbsp;</td><td width='106'>Used Memory (KB)</td></tr><tr><td width='8'>&nbsp;</td><td width='106'>1,752,918.531</td></tr></table>
+<table cellpadding='0' cellspacing='1' style='visibility: hidden;display: none; position:absolute;font-family: Osaka;font-size: 11px;background:#FFFFFF;foreground:#333333;color:#333333;-moz-opacity:.78;-opacity:.78;filter:alpha(opacity=78);border:1px solid #333333;' name='GP1356812520393AAAC' id='GP1356812520393AAAC'><tr><td width='8'>&nbsp;</td><td width='142'>Unallocated Memory (KB)</td></tr><tr><td width='8'>&nbsp;</td><td width='142'>1,579,392</td></tr></table>
+<table cellpadding='0' cellspacing='1' style='visibility: hidden;display: none; position:absolute;font-family: Osaka;font-size: 11px;background:#FFFFFF;foreground:#333333;color:#333333;-moz-opacity:.78;-opacity:.78;filter:alpha(opacity=78);border:1px solid #333333;' name='GP1356812520393AAAD' id='GP1356812520393AAAD'><tr><td width='8'>&nbsp;</td><td width='106'>Used Memory (KB)</td></tr><tr><td width='8'>&nbsp;</td><td width='106'>1,752,918.531</td></tr></table>
+<table cellpadding='0' cellspacing='1' style='visibility: hidden;display: none; position:absolute;font-family: Osaka;font-size: 11px;background:#FFFFFF;foreground:#333333;color:#333333;-moz-opacity:.78;-opacity:.78;filter:alpha(opacity=78);border:1px solid #333333;' name='GP1356812520393AAAE' id='GP1356812520393AAAE'><tr><td width='8'>&nbsp;</td><td width='102'>Free Memory (KB)</td></tr><tr><td width='8'>&nbsp;</td><td width='102'>111,273.469</td></tr></table>
+<table cellpadding='0' cellspacing='1' style='visibility: hidden;display: none; position:absolute;font-family: Osaka;font-size: 11px;background:#FFFFFF;foreground:#333333;color:#333333;-moz-opacity:.78;-opacity:.78;filter:alpha(opacity=78);border:1px solid #333333;' name='GP1356812520393AAAF' id='GP1356812520393AAAF'><tr><td width='8'>&nbsp;</td><td width='142'>Unallocated Memory (KB)</td></tr><tr><td width='8'>&nbsp;</td><td width='142'>1,579,392</td></tr></table>
+<MAP name='Images_123877920100095_PNG_map'>
+<AREA shape='rect' coords='0,0,1,1'/>
+<AREA shape="poly" coords="150,247,176,241,195,224,199,217,199,237,183,256,159,266,150,267" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAF",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAF",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAF",event)'/>
+<AREA shape="poly" coords="150,201,150,247,176,241,195,224,199,217" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAF",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAF",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAF",event)'/>
+<AREA shape="poly" coords="98,201,105,224,124,241,150,247,150,267,124,261,105,244,98,221" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAF",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAF",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAF",event)'/>
+<AREA shape="poly" coords="150,201,98,201,105,224,124,241,150,247" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAF",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAF",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAF",event)'/>
+<AREA shape="poly" coords="199,217,201,207,201,227,199,237" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAE",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAE",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAE",event)'/>
+<AREA shape="poly" coords="150,201,199,217,201,207" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAE",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAE",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAE",event)'/>
+<AREA shape="poly" coords="201,207,202,201,202,221,201,227" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAD",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAD",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAD",event)'/>
+<AREA shape="poly" coords="150,201,201,207,202,201" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAD",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAD",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAD",event)'/>
+<AREA shape="poly" coords="150,201,98,197,98,201" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAC",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAC",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAC",event)'/>
+<AREA shape="poly" coords="150,201,202,201,195,178,176,161,150,155" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAB",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAB",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAB",event)'/>
+<AREA shape="poly" coords="150,201,150,155,124,161,105,178,98,197" onMouseover='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAB",event,true)' onMouseout='xx_set_visible("Images_123877920100095_PNG","GP1356812520393AAAB",event,false)' onMousemove='xx_move_tag("Images_123877920100095_PNG","GP1356812520393AAAB",event)'/>
+</MAP>
+
+<script language="javascript" src="/CFIDE/GraphData.cfm?graphCache=wc50&graphID=script.js"></script>
+
+			
+			<div>
+				
+				
+				<input type="button" value="Run Garbage Collection" 
+				   	   name="cboxbutton_gc" id="cboxbutton_gc"
+				   	   style="font-size:10px" 
+				   	   title="Try to influence a garbage collection." 
+				   	   onClick="cachebox_cacheGC('/index.cfm','default',this.id)" />
+				
+			</div>
+		
+		</td>
+		<td align="center">
+		<!-- WebCharts3D v5.1(2077b) -->
+<IMG SRC="/CFIDE/GraphData.cfm?graphCache=wc50&graphID=Images/3295756530100093.PNG" id="Images_3295756530100093_PNG" name="Images_3295756530100093_PNG" usemap="#Images_3295756530100093_PNG_map" border="0"/>
+<table cellpadding='0' cellspacing='1' style='visibility: hidden;display: none; position:absolute;font-family: Osaka;font-size: 11px;background:#FFFFFF;foreground:#333333;color:#333333;-moz-opacity:.78;-opacity:.78;filter:alpha(opacity=78);border:1px solid #333333;' name='GP1356812513203AAAB' id='GP1356812513203AAAB'><tr><td width='8'>&nbsp;</td><td width='30'>Hits</td></tr><tr><td width='8'>&nbsp;</td><td width='30'>1</td></tr></table>
+<table cellpadding='0' cellspacing='1' style='visibility: hidden;display: none; position:absolute;font-family: Osaka;font-size: 11px;background:#FFFFFF;foreground:#333333;color:#333333;-moz-opacity:.78;-opacity:.78;filter:alpha(opacity=78);border:1px solid #333333;' name='GP1356812513203AAAC' id='GP1356812513203AAAC'><tr><td width='8'>&nbsp;</td><td width='44'>Misses</td></tr><tr><td width='8'>&nbsp;</td><td width='44'>8</td></tr></table>
+<table cellpadding='0' cellspacing='1' style='visibility: hidden;display: none; position:absolute;font-family: Osaka;font-size: 11px;background:#FFFFFF;foreground:#333333;color:#333333;-moz-opacity:.78;-opacity:.78;filter:alpha(opacity=78);border:1px solid #333333;' name='GP1356812513203AAAD' id='GP1356812513203AAAD'><tr><td width='8'>&nbsp;</td><td width='113'>Garbage Collections</td></tr><tr><td width='8'>&nbsp;</td><td width='113'>0</td></tr></table>
+<table cellpadding='0' cellspacing='1' style='visibility: hidden;display: none; position:absolute;font-family: Osaka;font-size: 11px;background:#FFFFFF;foreground:#333333;color:#333333;-moz-opacity:.78;-opacity:.78;filter:alpha(opacity=78);border:1px solid #333333;' name='GP1356812513203AAAE' id='GP1356812513203AAAE'><tr><td width='8'>&nbsp;</td><td width='56'>Evictions</td></tr><tr><td width='8'>&nbsp;</td><td width='56'>0</td></tr></table>
+<MAP name='Images_3295756530100093_PNG_map'>
+<AREA shape='rect' coords='0,0,1,1'/>
+<AREA shape="poly" coords="221,254,272,254,285,246,234,246" onMouseover='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAE",event,true)' onMouseout='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAE",event,false)' onMousemove='xx_move_tag("Images_3295756530100093_PNG","GP1356812513203AAAE",event)'/>
+<AREA shape="poly" coords="157,254,208,254,221,246,170,246" onMouseover='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAD",event,true)' onMouseout='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAD",event,false)' onMousemove='xx_move_tag("Images_3295756530100093_PNG","GP1356812513203AAAD",event)'/>
+<AREA shape="rect" coords="92,119,143,254" onMouseover='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAC",event,true)' onMouseout='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAC",event,false)' onMousemove='xx_move_tag("Images_3295756530100093_PNG","GP1356812513203AAAC",event)'/>
+<AREA shape="poly" coords="143,119,156,111,156,246,143,254" onMouseover='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAC",event,true)' onMouseout='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAC",event,false)' onMousemove='xx_move_tag("Images_3295756530100093_PNG","GP1356812513203AAAC",event)'/>
+<AREA shape="poly" coords="92,119,143,119,156,111,105,111" onMouseover='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAC",event,true)' onMouseout='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAC",event,false)' onMousemove='xx_move_tag("Images_3295756530100093_PNG","GP1356812513203AAAC",event)'/>
+<AREA shape="rect" coords="28,238,79,254" onMouseover='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAB",event,true)' onMouseout='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAB",event,false)' onMousemove='xx_move_tag("Images_3295756530100093_PNG","GP1356812513203AAAB",event)'/>
+<AREA shape="poly" coords="79,238,92,230,92,246,79,254" onMouseover='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAB",event,true)' onMouseout='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAB",event,false)' onMousemove='xx_move_tag("Images_3295756530100093_PNG","GP1356812513203AAAB",event)'/>
+<AREA shape="poly" coords="28,238,79,238,92,230,41,230" onMouseover='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAB",event,true)' onMouseout='xx_set_visible("Images_3295756530100093_PNG","GP1356812513203AAAB",event,false)' onMousemove='xx_move_tag("Images_3295756530100093_PNG","GP1356812513203AAAB",event)'/>
+<AREA shape="rect" coords="150,76,216,92"/>
+<AREA shape="rect" coords="27,76,150,92"/>
+<AREA shape="rect" coords="150,58,204,74"/>
+<AREA shape="rect" coords="27,58,67,74"/>
+</MAP>
+
+<script language="javascript" src="/CFIDE/GraphData.cfm?graphCache=wc50&graphID=script.js"></script>
+
+		</td>
+	</tr>
+</table>
+</div>
+
+
+<h3>Cache Configuration
+	<input type="button" value="Show/Hide" 
+		   name="cboxbutton_cacheproperties"
+		   style="font-size:10px" 
+		   title="View Cache Properties" 
+		   onClick="cachebox_toggleDiv('cachebox_cacheConfigurationTable','table')" />
+</h3>
+<div id="cachebox_cacheConfiguration">
+	<table border="0" cellpadding="0" cellspacing="1" class="cachebox_debugTables" id="cachebox_cacheConfigurationTable" style="display:none">
+		<thead>
+			<tr>
+			  	<th width="30%">Property</th>
+				<th>Value</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<tr >
+				<td>freememorypercentagethreshold</td>
+				<td>0</td>
+			</tr>
+			
+			<tr class="even">
+				<td>objectdefaulttimeout</td>
+				<td>120</td>
+			</tr>
+			
+			<tr >
+				<td>maxobjects</td>
+				<td>300</td>
+			</tr>
+			
+			<tr class="even">
+				<td>uselastaccesstimeouts</td>
+				<td>true</td>
+			</tr>
+			
+			<tr >
+				<td>provider</td>
+				<td>coldbox.system.cache.providers.CacheBoxColdBoxProvider</td>
+			</tr>
+			
+			<tr class="even">
+				<td>coldboxenabled</td>
+				<td>true</td>
+			</tr>
+			
+			<tr >
+				<td>objectdefaultlastaccesstimeout</td>
+				<td>30</td>
+			</tr>
+			
+			<tr class="even">
+				<td>evictcount</td>
+				<td>1</td>
+			</tr>
+			
+			<tr >
+				<td>evictionpolicy</td>
+				<td>LRU</td>
+			</tr>
+			
+			<tr class="even">
+				<td>objectstore</td>
+				<td>ConcurrentStore</td>
+			</tr>
+			
+			<tr >
+				<td>reapfrequency</td>
+				<td>2</td>
+			</tr>
+			
+		</tbody>
+	</table>
+</div>
+
+
+
+	<h3>Cache Content Report</h3>
+
+	
+	<input type="button" value="Reload Contents" 
+		   name="cboxbutton_reloadContents"
+		   style="font-size:10px" 
+		   title="Reload the contents" 
+		   onClick="cachebox_cacheContentReport('/index.cfm','default')" />
+		   
+	
+	<input type="button" value="Expire All Keys" 
+		   name="cboxbutton_expirekeys" id="cboxbutton_expirekeys"
+		   style="font-size:10px" 
+		   title="Expire all the keys in the cache" 
+		   onclick="cachebox_cacheContentCommand('/index.cfm','expirecache', 'default')" />
+
+	
+	
+		
+		<input type="button" value="Clear All Events" 
+			   name="cboxbutton_clearallevents" id="cboxbutton_clearallevents"
+			   style="font-size:10px" 
+			   title="Remove all the events in the cache" 
+			   onclick="cachebox_cacheContentCommand('/index.cfm','clearallevents', 'default')" />
+		
+		<input type="button" value="Clear All Views" 
+			   name="cboxbutton_clearallviews" id="cboxbutton_clearallviews"
+			   style="font-size:10px" 
+			   title="Remove all the views in the cache" 
+			   onclick="cachebox_cacheContentCommand('/index.cfm','clearallviews', 'default')" />
+	
+
+	
+	<span class="cachebox_redText cachebox_debugContent" id="cachebox_cacheContentReport_loader">Please Wait, Processing...</span>
+
+	<div class="cachebox_cacheContentReport" id="cachebox_cacheContentReport">
+		
+<table border="0" cellpadding="0" cellspacing="1" class="cachebox_debugTables">
+  <thead>
+  	<tr>
+	  	<th>Object</th>
+		<th align="center" width="10%" >Hits</th>
+		<th align="center" width="10%" >Timeout</th>
+		<th align="center" width="10%" >Idle Timeout</th>
+		<th align="center" width="10%" >Created</th>
+		<th align="center" width="10%" >Last Accessed</th>
+		<th align="center" width="10%" >Status</th>
+		<th align="center" width="5%" >CMDS</th>
+ 	</tr>
+  </thead>
+  <tbody>
+  	
+  
+		<tr  id="cbox_cache_tr_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejson">
+	  	
+		<td align="left">
+		  	<a href="javascript:cachebox_openwindow('/index.cfm?debugpanel=cacheviewer&cbox_cacheName=default&cbox_cacheEntry=wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejson','CacheViewer',650,375,'resizable,scrollbars,status')" 
+			   title="wirebox-coldbox.system.plugins.json">
+		  	wirebox-coldbox.system.plugins.json
+			</a>
+		</td>
+		
+		<td align="center" >1</td>
+		
+		<td align="center" >120</td>
+		
+		<td align="center" >30</td>
+		
+		<td align="center" >Dec-29 <Br/> 03:22:00 PM</td>
+		
+		<td align="center">Dec-29 <br/> 03:22:00 PM</td>
+	 	
+		<td align="center">
+			
+				<span class="cachebox_blueText">Alive</span>
+			
+		</td>
+		
+	 	<td align="center">
+			<input type="button" value="Expire" 
+				   name="cboxbutton_expireentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejson" id="cboxbutton_expireentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejson"
+			  	   style="font-size:10px" 
+				   title="Expire this entry from the cache" 
+				   onclick="cachebox_cacheExpireItem('/index.cfm','wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejson','default')">
+			<input type="button" value="Delete" 
+				   name="cboxbutton_removeentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejson" id="cboxbutton_removeentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejson"
+			  	   style="font-size:10px" 
+				   title="Remove this entry from the cache." 
+				   onclick="cachebox_cacheClearItem('/index.cfm','wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejson','default')">
+		</td>
+	  </tr>
+	
+		<tr class="even" id="cbox_cache_tr_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejvmutils">
+	  	
+		<td align="left">
+		  	<a href="javascript:cachebox_openwindow('/index.cfm?debugpanel=cacheviewer&cbox_cacheName=default&cbox_cacheEntry=wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejvmutils','CacheViewer',650,375,'resizable,scrollbars,status')" 
+			   title="wirebox-coldbox.system.plugins.jvmutils">
+		  	wirebox-coldbox.system.plugins.jvmutils
+			</a>
+		</td>
+		
+		<td align="center" >2</td>
+		
+		<td align="center" >120</td>
+		
+		<td align="center" >30</td>
+		
+		<td align="center" >Dec-29 <Br/> 03:22:00 PM</td>
+		
+		<td align="center">Dec-29 <br/> 03:22:00 PM</td>
+	 	
+		<td align="center">
+			
+				<span class="cachebox_blueText">Alive</span>
+			
+		</td>
+		
+	 	<td align="center">
+			<input type="button" value="Expire" 
+				   name="cboxbutton_expireentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejvmutils" id="cboxbutton_expireentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejvmutils"
+			  	   style="font-size:10px" 
+				   title="Expire this entry from the cache" 
+				   onclick="cachebox_cacheExpireItem('/index.cfm','wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejvmutils','default')">
+			<input type="button" value="Delete" 
+				   name="cboxbutton_removeentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejvmutils" id="cboxbutton_removeentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejvmutils"
+			  	   style="font-size:10px" 
+				   title="Remove this entry from the cache." 
+				   onclick="cachebox_cacheClearItem('/index.cfm','wirebox%2Dcoldbox%2Esystem%2Eplugins%2Ejvmutils','default')">
+		</td>
+	  </tr>
+	
+		<tr  id="cbox_cache_tr_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Elogger">
+	  	
+		<td align="left">
+		  	<a href="javascript:cachebox_openwindow('/index.cfm?debugpanel=cacheviewer&cbox_cacheName=default&cbox_cacheEntry=wirebox%2Dcoldbox%2Esystem%2Eplugins%2Elogger','CacheViewer',650,375,'resizable,scrollbars,status')" 
+			   title="wirebox-coldbox.system.plugins.logger">
+		  	wirebox-coldbox.system.plugins.logger
+			</a>
+		</td>
+		
+		<td align="center" >1</td>
+		
+		<td align="center" >120</td>
+		
+		<td align="center" >30</td>
+		
+		<td align="center" >Dec-29 <Br/> 03:22:00 PM</td>
+		
+		<td align="center">Dec-29 <br/> 03:22:00 PM</td>
+	 	
+		<td align="center">
+			
+				<span class="cachebox_blueText">Alive</span>
+			
+		</td>
+		
+	 	<td align="center">
+			<input type="button" value="Expire" 
+				   name="cboxbutton_expireentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Elogger" id="cboxbutton_expireentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Elogger"
+			  	   style="font-size:10px" 
+				   title="Expire this entry from the cache" 
+				   onclick="cachebox_cacheExpireItem('/index.cfm','wirebox%2Dcoldbox%2Esystem%2Eplugins%2Elogger','default')">
+			<input type="button" value="Delete" 
+				   name="cboxbutton_removeentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Elogger" id="cboxbutton_removeentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Elogger"
+			  	   style="font-size:10px" 
+				   title="Remove this entry from the cache." 
+				   onclick="cachebox_cacheClearItem('/index.cfm','wirebox%2Dcoldbox%2Esystem%2Eplugins%2Elogger','default')">
+		</td>
+	  </tr>
+	
+		<tr class="even" id="cbox_cache_tr_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Emessagebox">
+	  	
+		<td align="left">
+		  	<a href="javascript:cachebox_openwindow('/index.cfm?debugpanel=cacheviewer&cbox_cacheName=default&cbox_cacheEntry=wirebox%2Dcoldbox%2Esystem%2Eplugins%2Emessagebox','CacheViewer',650,375,'resizable,scrollbars,status')" 
+			   title="wirebox-coldbox.system.plugins.messagebox">
+		  	wirebox-coldbox.system.plugins.messagebox
+			</a>
+		</td>
+		
+		<td align="center" >1</td>
+		
+		<td align="center" >120</td>
+		
+		<td align="center" >30</td>
+		
+		<td align="center" >Dec-29 <Br/> 03:22:00 PM</td>
+		
+		<td align="center">Dec-29 <br/> 03:22:00 PM</td>
+	 	
+		<td align="center">
+			
+				<span class="cachebox_blueText">Alive</span>
+			
+		</td>
+		
+	 	<td align="center">
+			<input type="button" value="Expire" 
+				   name="cboxbutton_expireentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Emessagebox" id="cboxbutton_expireentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Emessagebox"
+			  	   style="font-size:10px" 
+				   title="Expire this entry from the cache" 
+				   onclick="cachebox_cacheExpireItem('/index.cfm','wirebox%2Dcoldbox%2Esystem%2Eplugins%2Emessagebox','default')">
+			<input type="button" value="Delete" 
+				   name="cboxbutton_removeentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Emessagebox" id="cboxbutton_removeentry_wirebox%2Dcoldbox%2Esystem%2Eplugins%2Emessagebox"
+			  	   style="font-size:10px" 
+				   title="Remove this entry from the cache." 
+				   onclick="cachebox_cacheClearItem('/index.cfm','wirebox%2Dcoldbox%2Esystem%2Eplugins%2Emessagebox','default')">
+		</td>
+	  </tr>
+		
+  </tbody>		  
+</table>
+
+	</div>
+</div>
+
+</div>
+
+<div class="fw_titles"  onClick="fw_toggle('fw_modules')" >
+&nbsp;ColdBox Modules
+</div>
+<div class="fw_debugContent" id="fw_modules">
+	
+	<div>
+		
+		<input type="button" value="Reload All" 
+			   name="cboxbutton_reloadModules"
+			   style="font-size:10px" 
+			   title="Reload All Modules" 
+			   onClick="location.href='http://desktop/index.cfm?cbox_command=reloadModules'" />
+		<input type="button" value="Unload All" 
+			   name="cboxbutton_unloadModules"
+			   style="font-size:10px" 
+			   title="Unload all modules from the application" 
+			   onClick="location.href='http://desktop/index.cfm?cbox_command=unloadModules'" />
+			   
+	</div>
+	<p>Below you can see the loaded application modules.</p>
+	<div>
+		
+		<table border="0" cellpadding="0" cellspacing="1" class="fw_debugTables">
+			<tr >
+				<th>Module</th>
+				<th width="15%">Author</th>
+				<th width="50">Version</th>
+				<th width="50">V.P.L</th>
+				<th width="50">L.P.L</th>
+				<th width="75">Load Time</th>
+				<th align="center" width="130" >CMDS</th>
+			</tr>
+			
+			
+		</table>
+	
+		<p>
+		  <em>
+			  * V.P.L = View Parent Lookup Order <br />
+		  	  * L.P.L = Layout Parent Lookup Order
+		  </em>
+		</p>
+	
+	</div>
+	
+</div>
+
+	<div class="fw_titles"  onClick="fw_toggle('fw_reqCollection')" >
+	&nbsp;ColdBox Request Structures
+	</div>
+	<div class="fw_debugContent" id="fw_reqCollection">
+		
+		
+
+<table border="0" cellpadding="0" cellspacing="1" class="fw_debugTables" width="100%">
+	<tr>
+		<th colspan="2">Public Collection</th>
+	</tr>
+	
+		<tr>
+			<td align="right" width="15%" class="fw_debugTablesTitles"><strong>event:</strong></td>
+			<td  class="fw_debugTablesCells">
+			main.secured 
+			</td>
+		</tr>
+	
+		<tr>
+			<td align="right" width="15%" class="fw_debugTablesTitles"><strong>fwreinit:</strong></td>
+			<td  class="fw_debugTablesCells">
+			
+					<span class="fw_redText">N/A</span>
+				
+			</td>
+		</tr>
+	
+		<tr>
+			<td align="right" width="15%" class="fw_debugTablesTitles"><strong>namespacerouting:</strong></td>
+			<td  class="fw_debugTablesCells">
+			
+					<span class="fw_redText">N/A</span>
+				
+			</td>
+		</tr>
+	
+		<tr>
+			<td align="right" width="15%" class="fw_debugTablesTitles"><strong>namespace:</strong></td>
+			<td  class="fw_debugTablesCells">
+			
+					<span class="fw_redText">N/A</span>
+				
+			</td>
+		</tr>
+	
+</table>
+
+
+<table border="0" cellpadding="0" cellspacing="1" class="fw_debugTables" width="100%">
+	<tr>
+		<th colspan="2">Private Collection</th>
+	</tr>
+	
+		<tr>
+			<td align="right" width="15%" class="fw_debugTablesTitles"><strong>currentroutedurl:</strong></td>
+			<td  class="fw_debugTablesCells">
+			main/secured/ 
+			</td>
+		</tr>
+	
+		<tr>
+			<td align="right" width="15%" class="fw_debugTablesTitles"><strong>cbox_incomingcontexthash:</strong></td>
+			<td  class="fw_debugTablesCells">
+			4808A1B4138FA1AC21BA48ACFCCFFEE7 
+			</td>
+		</tr>
+	
+		<tr>
+			<td align="right" width="15%" class="fw_debugTablesTitles"><strong>currentroute:</strong></td>
+			<td  class="fw_debugTablesCells">
+			:handler/:action/ 
+			</td>
+		</tr>
+	
+</table>
+
+	</div>
+	
+
+	<div class="fw_renderTime">Approximate Debug Rendering Time: 22 ms</div>
+
+</div>
