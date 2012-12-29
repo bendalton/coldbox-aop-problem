@@ -3,9 +3,11 @@
 */
 component{
 	
+	property name="MessageBox" inject="coldbox:plugin:MessageBox";
+
 	// Index
 	any function index(event,rc,prc){
-		
+		// MessageBox.setMessage('info',"MessageBox Works.");
 	}
 
 	// marked with secure

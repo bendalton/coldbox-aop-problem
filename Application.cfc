@@ -36,7 +36,10 @@ Description :
 		<!--- ************************************************************* --->
 		<cfargument name="targetPage" type="string" required="true" />
 		<!--- ************************************************************* --->
-		
+		<cfscript>
+			// applicationStop();
+			// abort;
+		</cfscript>
 		<!--- Process A ColdBox Request Only --->
 		<cfif findNoCase('index.cfm', listLast(arguments.targetPage, '/'))>
 			<!--- Reload Checks --->
