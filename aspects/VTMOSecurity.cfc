@@ -6,7 +6,8 @@
 component implements="coldbox.system.aop.MethodInterceptor" accessors="true" {
 
 	// Dependencies
-	property name="MessageBox" inject="coldbox:plugin:MessageBox";
+	property name="MessageBox" inject="provider:MessageBoxDSL";
+	property name="controller" inject="coldbox";
 	
 	any function invokeMethod(required invocation) output=false{
 
@@ -32,7 +33,7 @@ component implements="coldbox.system.aop.MethodInterceptor" accessors="true" {
 			MessageBox.setMessage('error',"You must be logged in and have permissions to perform this action.");
 
 			// This fails with (Variable SETNEXTEVENT is undefined.)
-			setNextEvent('/account/login');
+			controller.setNextEvent('account/login');
 			return;
 		}
 
