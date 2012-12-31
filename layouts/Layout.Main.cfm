@@ -1,1 +1,1 @@
-﻿<cfoutput>#html.doctype()#<html lang="en"><head>	<meta charset="utf-8">	<!---Base URL --->	<base href="#getSetting("HTMLBaseURL")#" /></head><body>	#getPlugin('MessageBox').renderIt()#	<div class="container">#renderView()#</div></body></html></cfoutput>
+﻿<cfoutput>#html.doctype()#<html lang="en"><head>	<meta charset="utf-8">	<!---Base URL --->	<base href="#getSetting("HTMLBaseURL")#" /></head><body>	<div class="container">#renderView()#</div></body></html></cfoutput>
