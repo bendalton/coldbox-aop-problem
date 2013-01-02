@@ -49,14 +49,9 @@ function configure(){
 		//SES
 		{class="coldbox.system.interceptors.SES",
 		 properties={}
-		},
-		{class="interceptors.Security"}
+		}
 	];
 
-	interceptorSettings = {
-		throwOnInvalidStates = false,
-		customInterceptionPoints = "SecurityNoPermission"
-	};
 }
 
 </cfscript>

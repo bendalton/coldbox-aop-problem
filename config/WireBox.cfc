@@ -60,6 +60,8 @@ Description :
 		// Map Bindings below
 		mapAspect("VTMOSecurity").to("aspects.VTMOSecurity");
 
+		map("MessageBoxDSL").toDSL("coldbox:plugin:MessageBox");
+
 	}
 </cfscript>
 </cfcomponent>
